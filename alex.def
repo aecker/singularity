@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
+
+%post
+    pip install git+https://github.com/sinzlab/nnfabrik.git
+    pip install git+https://github.com/sinzlab/neuralpredictors
+    pip install pyarrow
+    pip install wandb
+    pip install GitPython
+    pip install deeplake
+
