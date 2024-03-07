@@ -1,6 +1,10 @@
 Bootstrap: docker
 From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
 
+%files
+    /home/nibecker/projects/neuralpredictors /home/nibecker/projects/neuralpredictors
+    /home/nibecker/projects/sensorium2022 /home/nibecker/projects/sensorium2022
+
 %post
     pip install git+https://github.com/sinzlab/nnfabrik.git
     pip install git+https://github.com/sinzlab/neuralpredictors
@@ -8,4 +12,16 @@ From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
     pip install wandb
     pip install GitPython
     pip install deeplake
+
+    chmod -R a+rwx /home/nibecker/projects
+    cd /$HOME/projects
+
+    python -m pip install --no-cache-dir -e neuralpredictors
+    python -m pip install --no-cache-dir -e sensorium2022
+
+%runscript
+    exec /bin/bash -c "$@"
+
+%startscript
+    jupyter lab
 
