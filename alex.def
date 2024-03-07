@@ -2,8 +2,9 @@ Bootstrap: docker
 From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
 
 %files
-    /home/nibecker/projects/neuralpredictors /home/nibecker/projects/neuralpredictors
-    /home/nibecker/projects/sensorium2022 /home/nibecker/projects/sensorium2022
+    /user/ecker/projects/neuralpredictors /home/nibecker/projects/neuralpredictors
+    /user/ecker/projects/sensorium2022 /home/nibecker/projects/sensorium2022
+    jupyter_server_config.json /home/nibecker/.jupyter/jupyter_server_config.json
 
 %post
     pip install git+https://github.com/sinzlab/nnfabrik.git
@@ -14,7 +15,7 @@ From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
     pip install deeplake
 
     chmod -R a+rwx /home/nibecker/projects
-    cd /$HOME/projects
+    cd /home/nibecker/projects
 
     python -m pip install --no-cache-dir -e neuralpredictors
     python -m pip install --no-cache-dir -e sensorium2022
@@ -23,5 +24,6 @@ From: eckerlabdocker/docker:cuda11.3-py3.10-torch1.13-tf2.11
     exec /bin/bash -c "$@"
 
 %startscript
+    cd /home/nibecker
     jupyter lab
 
